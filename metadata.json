@@ -1,0 +1,7 @@
+{
+  "name": "NanoMarketer",
+  "description": "AI-powered product marketing asset generator using Gemini 2.5 Flash Image.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
