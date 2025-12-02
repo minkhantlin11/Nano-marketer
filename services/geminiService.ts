@@ -35,10 +35,11 @@ export const generateMarketingAsset = async ({
       }
     });
     parts.push({
-      text: "The second image provided is the brand logo. Please incorporate it tastefully into the design."
+      text: "The second image provided is the brand logo. Please incorporate it tastefully into the design if the user asks for it or if it fits the context."
     });
   }
 
+  // The prompt acts as the instruction for editing/generating
   parts.push({
     text: prompt
   });
@@ -55,13 +56,11 @@ export const generateMarketingAsset = async ({
     for (const part of response.candidates?.[0]?.content?.parts || []) {
       if (part.inlineData) {
         const base64EncodeString = part.inlineData.data;
-        // Assume PNG if not specified, but typically the model returns same mime or PNG
-        // The SDK might strip mimeType from inlineData in response sometimes, defaulting to png for display safety
         return `data:image/png;base64,${base64EncodeString}`;
       }
     }
     
-    throw new Error("No image generated.");
+    throw new Error("No image generated. The model might have returned only text.");
   } catch (error) {
     console.error("Gemini API Error:", error);
     throw error;
